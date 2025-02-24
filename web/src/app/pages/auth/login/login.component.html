@@ -1,0 +1,80 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4 shadow" style="max-width: 500px; width: 100%">
+    <h3 class="text-center mb-3" style="color: var(--primary)">TeachNearby</h3>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+      <!-- Email Field -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+        <div
+          *ngIf="
+            formGroup.get('email')?.invalid && formGroup.get('email')?.touched
+          "
+          class="text-danger mt-1"
+        >
+          Valid email is required.
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+        <div
+          *ngIf="
+            formGroup.get('password')?.invalid &&
+            formGroup.get('password')?.touched
+          "
+          class="text-danger mt-1"
+        >
+          Password must be at least 6 characters.
+        </div>
+      </div>
+
+      <!-- Remember Me -->
+      <div class="form-check mb-3">
+        <input type="checkbox" id="rememberMe" class="form-check-input" />
+        <label class="form-check-label" for="rememberMe">Remember Me</label>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn btn-primary w-100"
+        [disabled]="formGroup.invalid"
+      >
+        Login
+      </button>
+    </form>
+
+    <!-- Additional Links -->
+    <div class="text-center mt-3">
+      <a href="#" class="text-decoration-none" style="color: var(--secondary)"
+        >Forgot Password?</a
+      >
+    </div>
+    <div class="text-center mt-2">
+      <p class="mb-0">
+        Don't have an account?
+        <a
+          routerLink="/register"
+          class="text-decoration-none"
+          style="color: var(--secondary)"
+          >Sign up</a
+        >
+      </p>
+    </div>
+  </div>
+</div>

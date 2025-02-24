@@ -1,0 +1,42 @@
+<div class="mt-5">
+  <div class="text-center mt-4">
+    <button class="btn btn-danger" (click)="confirmClearReports()">Clear Reports</button>
+  </div>
+  <div *ngIf="logs.length === 0" class="alert alert-info text-center">
+    No work data available yet. Start tracking your sessions!
+  </div>
+
+  <div *ngFor="let log of logs" class="card my-3 p-3 shadow-sm">
+    <h4 class="text-dark">{{ log.date }}</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="table-secondary">
+            <th>Start Time</th>
+            <th>Stop Time</th>
+            <th>Duration (mins)</th>
+            <th>Description </th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let session of log.sessions">
+            <td>{{ session.startTime | date: 'shortTime' }}</td>
+            <td>{{ session.stopTime | date: 'shortTime' }}</td>
+            <td>{{ formatTotalWork(session.duration) }}</td>
+            <td>{{ session.description }}</td>
+
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="table-info">
+            <th colspan="2" class="text-end">Total Work (mins)</th>
+            <th>{{ formatTotalWork(log.totalWork) }}</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+
+</div>

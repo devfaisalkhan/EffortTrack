@@ -1,0 +1,24 @@
+.navbar {
+    border-bottom: 2px solid #E9C46A; /* Accent color */
+    // position: s;
+    left: 0;
+    right: 0;
+  }
+  
+  .navbar-brand img {
+    filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.1));
+  }
+  
+  .nav-link {
+    font-weight: 500;
+    transition: 0.3s;
+  }
+  
+  .nav-link:hover {
+    color: #2A9D8F !important;
+  }
+  
+  .btn-outline-dark {
+    border-color: #264653;
+  }
+  
