@@ -17,7 +17,6 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepo: Repository<User>,
-
     private readonly mailService: MailerService,
   ) {}
 

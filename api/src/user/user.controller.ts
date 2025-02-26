@@ -19,11 +19,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserController {
   constructor(private userSvc: UserService) {}
 
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log(file);
-  }
+  // @Post('upload')
+  // @UseInterceptors(FileInterceptor('file'))
+  // uploadFile(@UploadedFile() file: Express.Multer.File) {
+  //   console.log(file);
+  // }
 
   @Post('sendMail')
   async sendMail(@Body() args: { to; subject }) {

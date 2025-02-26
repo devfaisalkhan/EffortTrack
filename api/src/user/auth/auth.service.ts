@@ -17,7 +17,7 @@ import { ConfigService } from '@nestjs/config';
 import { CreateUserDto } from '../dto/create-user.dto';
 
 import * as argon from 'argon2';
-import { ConfigurationService } from 'src/shared/config/configuration.service';
+import { CustomConfigurationService } from 'src/shared/config/configuration.service';
 
 @Injectable()
 export class AuthService {
@@ -27,7 +27,7 @@ export class AuthService {
 
     private userSvc: UserService,
     private jwtService: JwtService,
-    private configSvc: ConfigurationService,
+    private configSvc: CustomConfigurationService,
   ) {}
 
   async register(data: CreateUserDto): Promise<IResponse<any>> {

@@ -13,15 +13,15 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { ConfigurationModule } from 'src/shared/config/configuration.module';
-import { ConfigurationService } from 'src/shared/config/configuration.service';
+import { CustomConfigurationService } from 'src/shared/config/configuration.service';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigurationModule],
-      inject: [ConfigurationService], // Inject the ConfigService
-      useFactory: async (configService: ConfigurationService) => ({
+      inject: [CustomConfigurationService], // Inject the ConfigService
+      useFactory: async (configService: CustomConfigurationService) => ({
         secret: configService.getJwtConfig().accessTokenKey,
         signOptions: {
           expiresIn: AppConstant.DEFAULT_JWT_ACCESS_TOKEN_EXPIRATION,
@@ -32,7 +32,7 @@ import { ConfigurationService } from 'src/shared/config/configuration.service';
   ],
   controllers: [AuthController],
   providers: [
-    ConfigurationService,
+    CustomConfigurationService,
     AuthService,
     UserService,
     LocalStrategy,
@@ -46,6 +46,6 @@ import { ConfigurationService } from 'src/shared/config/configuration.service';
       useClass: JwtAuthGuard,
     },
   ],
-  exports: [ConfigurationService, AuthService],
+  exports: [CustomConfigurationService, AuthService],
 })
 export class AuthModule {}
