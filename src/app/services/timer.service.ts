@@ -88,4 +88,9 @@ export class TimerService {
 
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
+
+  clearLogs() {
+    localStorage.removeItem('timeLogs');
+    this.logsSubject.next([]);
+  }
 }

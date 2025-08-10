@@ -14,4 +14,10 @@ export class TimeLogs {
   constructor(private timerService: TimerService) {
     this.logs$ = this.timerService.logs$;
   }
+
+  clearLogs() {
+    if (confirm('Are you sure you want to delete all time logs?')) {
+      this.timerService.clearLogs();
+    }
+  }
 }
