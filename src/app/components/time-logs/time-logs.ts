@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { TimeLog, TimerService } from '../../services/timer.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-time-logs',
@@ -13,11 +14,13 @@ import { FormsModule } from '@angular/forms';
 export class TimeLogs implements OnInit {
   logs$: Observable<TimeLog[]>;
   filteredLogs$: Observable<TimeLog[]>;
+  totalTime$: Observable<string>;
   filterDate: string;
 
   constructor(private timerService: TimerService) {
     this.logs$ = this.timerService.logs$;
     this.filteredLogs$ = new Observable<TimeLog[]>();
+    this.totalTime$ = new Observable<string>();
     this.filterDate = new Date().toISOString().split('T')[0];
   }
 
@@ -27,6 +30,21 @@ export class TimeLogs implements OnInit {
 
   filterLogsByDay() {
     this.filteredLogs$ = this.timerService.filterLogsByDay(new Date(this.filterDate));
+    this.totalTime$ = this.filteredLogs$.pipe(
+      map(logs => {
+        const totalMilliseconds = logs.reduce((acc, log) => {
+          const durationParts = log.duration.split(':').map(part => parseInt(part, 10));
+          const milliseconds = (durationParts[0] * 3600 + durationParts[1] * 60 + durationParts[2]) * 1000;
+          return acc + milliseconds;
+        }, 0);
+
+        const hours = Math.floor(totalMilliseconds / 3600000);
+        const minutes = Math.floor((totalMilliseconds % 3600000) / 60000);
+        const seconds = Math.floor(((totalMilliseconds % 3600000) % 60000) / 1000);
+
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      })
+    );
   }
 
   clearLogs() {

@@ -23,6 +23,12 @@
             <td>{{log.duration}}</td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="2" class="text-end">Total Time:</th>
+                <th>{{ totalTime$ | async }}</th>
+            </tr>
+        </tfoot>
         </table>
     </div>
     </div>
