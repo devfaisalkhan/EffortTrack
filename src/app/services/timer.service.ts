@@ -18,9 +18,11 @@ export class TimerService {
 
   private timeSubject = new BehaviorSubject<string>('00:00:00');
   private logsSubject = new BehaviorSubject<TimeLog[]>([]);
+  private isRunningSubject = new BehaviorSubject<boolean>(false);
 
   time$ = this.timeSubject.asObservable();
   logs$ = this.logsSubject.asObservable();
+  isRunning$ = this.isRunningSubject.asObservable();
 
   constructor() {
     this.loadLogs();
@@ -29,6 +31,7 @@ export class TimerService {
   startTimer() {
     if (!this.timerRunning) {
       this.timerRunning = true;
+      this.isRunningSubject.next(true);
       this.startTime = new Date();
       this.timerSubscription = interval(1000).pipe(
         map(() => this.formatDuration(new Date().getTime() - this.startTime!.getTime()))
@@ -39,6 +42,7 @@ export class TimerService {
   stopTimer() {
     if (this.timerRunning && this.startTime) {
       this.timerRunning = false;
+      this.isRunningSubject.next(false);
       const endTime = new Date();
       const duration = this.formatDuration(endTime.getTime() - this.startTime.getTime());
       

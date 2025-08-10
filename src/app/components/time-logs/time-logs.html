@@ -1,0 +1,23 @@
+<div class="logs-column">
+    <div class="py-4">
+    <h2 class="mb-4">Time Logs</h2>
+    <div class="table-responsive">
+        <table class="table">
+        <thead>
+            <tr>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let log of logs$ | async">
+            <td>{{log.start | date:'short'}}</td>
+            <td>{{log.end | date:'short'}}</td>
+            <td>{{log.duration}}</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    </div>
+</div>
