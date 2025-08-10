@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Angular Build and Deploy To Github
 
 on:
   push:
@@ -6,26 +6,23 @@ on:
       - master
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-    - name: Install dependencies
-      run: npm install
+      - name: Build Angular app to prod
+        working-directory: web
+        run: npm install && npm run build:prod
 
-    - name: Build
-      run: npm run build -- --base-href /EffortTrack/
-
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        # github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist/EffortTrack/browser
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: web/dist/browser
+          branch: prod 
