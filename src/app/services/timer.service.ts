@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, interval, Subject } from 'rxjs';
+import { BehaviorSubject, interval, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export interface TimeLog {
@@ -92,5 +92,16 @@ export class TimerService {
   clearLogs() {
     localStorage.removeItem('timeLogs');
     this.logsSubject.next([]);
+  }
+
+  filterLogsByDay(date: Date): Observable<TimeLog[]> {
+    return this.logs$.pipe(
+      map(logs => logs.filter(log => {
+        const logDate = new Date(log.start);
+        return logDate.getFullYear() === date.getFullYear() &&
+               logDate.getMonth() === date.getMonth() &&
+               logDate.getDate() === date.getDate();
+      }))
+    );
   }
 }

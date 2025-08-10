@@ -2,7 +2,10 @@
     <div class="py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="m-0">Time Logs</h2>
-      <button class="btn btn-danger" (click)="clearLogs()">Clear Logs</button>
+      <div class="d-flex">
+        <input type="date" class="form-control me-2" [(ngModel)]="filterDate" (ngModelChange)="filterLogsByDay()">
+        <button class="btn btn-danger" (click)="clearLogs()">Clear Logs</button>
+      </div>
     </div>
     <div class="table-responsive">
         <table class="table">
@@ -14,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let log of logs$ | async">
+            <tr *ngFor="let log of filteredLogs$ | async">
             <td>{{log.start | date:'short'}}</td>
             <td>{{log.end | date:'short'}}</td>
             <td>{{log.duration}}</td>
