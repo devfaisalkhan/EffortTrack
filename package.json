@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "deploy:gh": "ng deploy --base-href=https://devfaisalkhan.github.io/EffortTrack/",
+    "deploy:gh": "ng build --configuration production --base-href https://devfaisalkhan.github.io/EffortTrack/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
