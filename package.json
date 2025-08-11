@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "deploy:gh": "ng build --configuration production --base-href https://devfaisalkhan.github.io/EffortTrack/",
+    "build": "ng build --configuration production --base-href /EffortTrack/",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng build --configuration production --base-href /EffortTrack/ && npx gh-pages -d dist/EffortTrack/browser"
   },
   "prettier": {
     "overrides": [
