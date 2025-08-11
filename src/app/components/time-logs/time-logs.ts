@@ -16,13 +16,13 @@ export class TimeLogs implements OnInit {
   logs$: Observable<TimeLog[]>;
   filteredLogs$: Observable<TimeLog[]>;
   totalTime$: Observable<string>;
-  filterDate: string;
+  filterDate!: string;
 
   constructor(private timerService: TimerService) {
     this.logs$ = this.timerService.logs$;
     this.filteredLogs$ = new Observable<TimeLog[]>();
     this.totalTime$ = new Observable<string>();
-    this.filterDate = new Date().toISOString().split('T')[0];
+    this.filterDate = new Date().toISOString();
   }
 
   ngOnInit(): void {
