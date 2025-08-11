@@ -1,64 +1,66 @@
  <div class="timer-column">
-          <div class="sticky-top pt-4">
-            <div class="text-center timer-container">
-              <h2 class="mb-4">Time Tracker</h2>
-              
-              <div #flipClock class="flip-clock mb-4">
-                <ng-container *ngIf="time$ | async as time">
-                  <!-- Hours -->
-                  <div class="digit-group">
-                    <div class="digit">
-                      <div class="top">{{time[0]}}</div>
-                      <div class="bottom">{{time[0]}}</div>
-                    </div>
-                    <div class="digit">
-                      <div class="top">{{time[1]}}</div>
-                      <div class="bottom">{{time[1]}}</div>
-                    </div>
-                  </div>
-                  
-                  <div class="colon">:</div>
-                  
-                  <!-- Minutes -->
-                  <div class="digit-group">
-                    <div class="digit">
-                      <div class="top">{{time[3]}}</div>
-                      <div class="bottom">{{time[3]}}</div>
-                    </div>
-                    <div class="digit">
-                      <div class="top">{{time[4]}}</div>
-                      <div class="bottom">{{time[4]}}</div>
-                    </div>
-                  </div>
-                  
-                  <div class="colon">:</div>
-                  
-                  <!-- Seconds -->
-                  <div class="digit-group">
-                    <div class="digit">
-                      <div class="top">{{time[6]}}</div>
-                      <div class="bottom">{{time[6]}}</div>
-                    </div>
-                    <div class="digit">
-                      <div class="top">{{time[7]}}</div>
-                      <div class="bottom">{{time[7]}}</div>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
+    <div class="sticky-top pt-4">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h2 class="mb-4">Time Tracker</h2>
+                
+                <div #flipClock class="flip-clock mb-4">
+                    <ng-container *ngIf="time$ | async as time">
+                        <!-- Hours -->
+                        <div class="digit-group">
+                            <div class="digit">
+                                <div class="top">{{time[0]}}</div>
+                                <div class="bottom">{{time[0]}}</div>
+                            </div>
+                            <div class="digit">
+                                <div class="top">{{time[1]}}</div>
+                                <div class="bottom">{{time[1]}}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="colon">:</div>
+                        
+                        <!-- Minutes -->
+                        <div class="digit-group">
+                            <div class="digit">
+                                <div class="top">{{time[3]}}</div>
+                                <div class="bottom">{{time[3]}}</div>
+                            </div>
+                            <div class="digit">
+                                <div class="top">{{time[4]}}</div>
+                                <div class="bottom">{{time[4]}}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="colon">:</div>
+                        
+                        <!-- Seconds -->
+                        <div class="digit-group">
+                            <div class="digit">
+                                <div class="top">{{time[6]}}</div>
+                                <div class="bottom">{{time[6]}}</div>
+                            </div>
+                            <div class="digit">
+                                <div class="top">{{time[7]}}</div>
+                                <div class="bottom">{{time[7]}}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
 
-              <div class="d-grid gap-2 d-md-block">
-                <button class="btn btn-primary me-md-2" 
-                        (click)="startTimer()"
-                        [disabled]="isRunning$ | async">
-                  Start
-                </button>
-                <button class="btn btn-danger" 
-                        (click)="stopTimer()"
-                        [disabled]="!(isRunning$ | async)">
-                  Stop
-                </button>
-              </div>
+                <div class="d-grid gap-2 d-md-block">
+                    <button class="btn btn-primary me-md-2" 
+                            (click)="startTimer()"
+                            [disabled]="isRunning$ | async">
+                        Start
+                    </button>
+                    <button class="btn btn-danger" 
+                            (click)="stopTimer()"
+                            [disabled]="!(isRunning$ | async)">
+                        Stop
+                    </button>
+                </div>
             </div>
-          </div>
         </div>
+    </div>
+</div>

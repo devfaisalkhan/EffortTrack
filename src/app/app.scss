@@ -1,7 +1,10 @@
+body {
+    background-color: #f8f9fa;
+}
 
-    .sticky-top {
-      top: 1rem;
-      z-index: 1020;
-          position: sticky;
+.sticky-top {
+    top: 1rem;
+    z-index: 1020;
+    position: sticky;
     height: 100%;
-    }
+}

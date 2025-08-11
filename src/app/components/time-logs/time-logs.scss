@@ -1,12 +1,19 @@
+.logs-column {
+    padding: 1rem;
+}
 
-    .logs-column {
-      min-height: 100vh;
-      border-left: 1px solid #eee;
-    }
+.card {
+    border-radius: .75rem;
+}
 
-    @media (max-width: 767px) {
-      .logs-column {
-        border-left: none;
-        border-top: 1px solid #eee;
-      }
-    }
+.table {
+    margin-bottom: 0;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.025);
+}
