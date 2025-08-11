@@ -6,6 +6,8 @@ export interface TimeLog {
   start: Date;
   end: Date;
   duration: string;
+  description: string;
+  editing?: boolean;
 }
 
 @Injectable({
@@ -39,7 +41,7 @@ export class TimerService {
     }
   }
 
-  stopTimer() {
+  stopTimer(description: string) {
     if (this.timerRunning && this.startTime) {
       this.timerRunning = false;
       this.isRunningSubject.next(false);
@@ -49,7 +51,8 @@ export class TimerService {
       const log: TimeLog = {
         start: this.startTime,
         end: endTime,
-        duration
+        duration,
+        description
       };
 
       const currentLogs = this.logsSubject.value;
@@ -79,6 +82,19 @@ export class TimerService {
       }));
       this.logsSubject.next(parsedLogs);
     }
+  }
+
+  updateLog(updatedLog: TimeLog) {
+    const currentLogs = this.logsSubject.value;
+    const updatedLogs = currentLogs.map(log => {
+      if (log.start === updatedLog.start) {
+        return updatedLog;
+      }
+      return log;
+    });
+
+    localStorage.setItem('timeLogs', JSON.stringify(updatedLogs));
+    this.logsSubject.next(updatedLogs);
   }
 
   private formatDuration(ms: number): string {

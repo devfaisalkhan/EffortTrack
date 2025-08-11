@@ -4,10 +4,11 @@ import { TimeLog, TimerService } from '../../services/timer.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 
 @Component({
   selector: 'app-time-logs',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ClickOutsideDirective],
   templateUrl: './time-logs.html',
   styleUrl: './time-logs.scss'
 })
@@ -50,6 +51,18 @@ export class TimeLogs implements OnInit {
   clearLogs() {
     if (confirm('Are you sure you want to delete all time logs?')) {
       this.timerService.clearLogs();
+    }
+  }
+
+  toggleEdit(log: TimeLog) {
+    log.editing = true;
+  }
+
+  updateDescription(log: TimeLog, newDescription: string) {
+    if (log.editing) {
+      log.description = newDescription;
+      log.editing = false;
+      this.timerService.updateLog(log);
     }
   }
 }

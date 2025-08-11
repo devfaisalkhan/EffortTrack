@@ -2,11 +2,12 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { TimerService } from '../../services/timer.service';
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { gsap } from 'gsap';
 
 @Component({
   selector: 'app-time-tracker',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './time-tracker.html',
   styleUrls: ['./time-tracker.scss']
 })
@@ -15,6 +16,7 @@ export class TimeTracker implements OnInit, OnDestroy {
 
   isRunning$: Observable<boolean>;
   time$: Observable<string>;
+  description: string = '';
   private timeSubscription: Subscription | undefined;
 
   constructor(private timerService: TimerService) {
@@ -40,7 +42,8 @@ export class TimeTracker implements OnInit, OnDestroy {
   }
 
   stopTimer() {
-    this.timerService.stopTimer();
+    this.timerService.stopTimer(this.description);
+    this.description = '';
   }
 
   private updateFlipClock(time: string) {
