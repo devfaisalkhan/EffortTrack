@@ -23,10 +23,10 @@
                             <td>{{log.start | date:'short'}}</td>
                             <td>{{log.end | date:'short'}}</td>
                             <td>{{log.duration}}</td>
-                            <td (click)="toggleEdit(log)" (appClickOutside)="updateDescription(log, log.description)">
-                                <span *ngIf="!log.editing">{{log.description}}</span>
-                                <div *ngIf="log.editing" class="input-group">
-                                    <input type="text" [(ngModel)]="log.description" (keydown.enter)="updateDescription(log, $event.target.value)" class="form-control">
+                            <td>
+                                <span *ngIf="!log.editing" (click)="toggleEdit(log)">{{log.description}}</span>
+                                <div *ngIf="log.editing" class="input-group" (clickOutside)="updateDescription(log, log.description)">
+                                    <input #descriptionInput type="text" [(ngModel)]="log.description" (keydown.enter)="updateDescription(log, log.description)" (focus)="descriptionInput.select()" class="form-control" autofocus>
                                     <button class="btn btn-success" (click)="updateDescription(log, log.description)">✓</button>
                                 </div>
                             </td>

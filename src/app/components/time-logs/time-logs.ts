@@ -8,7 +8,7 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
 
 @Component({
   selector: 'app-time-logs',
-  imports: [CommonModule, FormsModule, ClickOutsideDirective],
+  imports: [CommonModule, FormsModule],
   templateUrl: './time-logs.html',
   styleUrl: './time-logs.scss'
 })
@@ -55,6 +55,15 @@ export class TimeLogs implements OnInit {
   }
 
   toggleEdit(log: TimeLog) {
+    // Close any other editing rows
+    this.filteredLogs$.subscribe(logs => {
+      logs.forEach(l => {
+        if (l !== log) {
+          l.editing = false;
+        }
+      });
+    });
+    
     log.editing = true;
   }
 
