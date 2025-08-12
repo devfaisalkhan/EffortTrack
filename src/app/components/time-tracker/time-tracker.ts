@@ -17,6 +17,7 @@ export class TimeTracker implements OnInit, OnDestroy {
   isRunning$: Observable<boolean>;
   time$: Observable<string>;
   description: string = '';
+  descriptionError: boolean = false;
   private timeSubscription: Subscription | undefined;
 
   constructor(private timerService: TimerService) {
@@ -39,9 +40,17 @@ export class TimeTracker implements OnInit, OnDestroy {
 
   startTimer() {
     this.timerService.startTimer();
+    this.descriptionError = false; // Clear any previous error when starting
   }
 
   stopTimer() {
+    // Validate that description is not empty
+    if (!this.description.trim()) {
+      this.descriptionError = true;
+      return; // Don't stop the timer if validation fails
+    }
+    
+    this.descriptionError = false;
     this.timerService.stopTimer(this.description);
     this.description = '';
   }

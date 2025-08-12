@@ -52,7 +52,11 @@
                     <textarea class="form-control" 
                               rows="3" 
                               placeholder="What are you working on?"
-                              [(ngModel)]="description"></textarea>
+                              [(ngModel)]="description"
+                              [class.is-invalid]="descriptionError"></textarea>
+                    <div class="invalid-feedback" *ngIf="descriptionError">
+                        Please enter a description of your work
+                    </div>
                 </div>
 
                 <div class="d-grid gap-2 d-md-block">
