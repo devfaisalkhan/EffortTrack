@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TimeLog, TimerService } from '../../services/timer.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 
 @Component({
   selector: 'app-time-logs',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DatePipe],
   templateUrl: './time-logs.html',
   styleUrl: './time-logs.scss'
 })
@@ -20,9 +20,9 @@ export class TimeLogs implements OnInit {
 
   constructor(private timerService: TimerService) {
     this.logs$ = this.timerService.logs$;
-    this.filteredLogs$ = new Observable<TimeLog[]>();
+    this.filteredLogs$ = new Observable<TimeLog[]>(); 
     this.totalTime$ = new Observable<string>();
-    this.filterDate = new Date().toISOString();
+    this.filterDate = new Date().toISOString().split('T')[0]; // Format as YYYY-MM-DD
   }
 
   ngOnInit(): void {

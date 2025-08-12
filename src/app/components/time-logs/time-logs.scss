@@ -4,10 +4,32 @@
 
 .card {
     border-radius: .75rem;
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.header-section {
+    .date-filter-section {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #e9ecef;
+        
+        label {
+            font-weight: 500;
+        }
+        
+        small {
+            display: block;
+            margin-top: 0.25rem;
+        }
+    }
 }
 
 .table {
     margin-bottom: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
 }
 
 .table-hover tbody tr:hover {
@@ -16,4 +38,37 @@
 
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: rgba(0, 0, 0, 0.025);
+}
+
+.description-text {
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+}
+
+.btn-danger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .header-section {
+        .d-flex {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        .date-filter-section {
+            margin-top: 1rem;
+            
+            .d-flex {
+                flex-direction: row;
+            }
+        }
+    }
 }
