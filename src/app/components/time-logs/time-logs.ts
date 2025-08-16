@@ -16,21 +16,34 @@ export class TimeLogs implements OnInit {
   logs$: Observable<TimeLog[]>;
   filteredLogs$: Observable<TimeLog[]>;
   totalTime$: Observable<string>;
-  filterDate!: string;
+  filterDate: Date;
 
   constructor(private timerService: TimerService) {
     this.logs$ = this.timerService.logs$;
     this.filteredLogs$ = new Observable<TimeLog[]>(); 
     this.totalTime$ = new Observable<string>();
-    this.filterDate = new Date().toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    // Initialize with today's date
+    this.filterDate = new Date();
+    // Normalize to remove time component
+    this.filterDate = new Date();
   }
 
   ngOnInit(): void {
     this.filterLogsByDay();
   }
 
+  onDateChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.value) {
+      this.filterDate = new Date(input.value);
+      this.filterLogsByDay();
+    }
+  }
+
   filterLogsByDay() {
-    this.filteredLogs$ = this.timerService.filterLogsByDay(new Date(this.filterDate));
+    // Create a normalized date for filtering
+    const normalizedDate = new Date(this.filterDate);
+    this.filteredLogs$ = this.timerService.filterLogsByDay(normalizedDate);
     this.totalTime$ = this.filteredLogs$.pipe(
       map(logs => {
         const totalMilliseconds = logs.reduce((acc, log) => {

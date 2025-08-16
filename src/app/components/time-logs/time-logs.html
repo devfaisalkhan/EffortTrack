@@ -14,7 +14,7 @@
                         <label for="dateFilter" class="form-label me-2 mb-0">
                             <i class="bi bi-calendar"></i> Filter by Date:
                         </label>
-                        <input type="date" id="dateFilter" class="form-control" [(ngModel)]="filterDate" (ngModelChange)="filterLogsByDay()">
+                        <input type="date" id="dateFilter" class="form-control" [value]="filterDate | date:'yyyy-MM-dd'" (change)="onDateChange($event)">
                     </div>
                     <small class="text-muted">Showing logs for {{ filterDate | date:'fullDate' }}</small>
                 </div>

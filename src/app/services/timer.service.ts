@@ -49,8 +49,8 @@ export class TimerService {
       const duration = this.formatDuration(endTime.getTime() - this.startTime.getTime());
       
       const log: TimeLog = {
-        start: this.startTime,
-        end: endTime,
+        start: new Date(this.startTime), // Ensure we're working with a clean Date object
+        end: new Date(endTime), // Ensure we're working with a clean Date object
         duration,
         description
       };
@@ -87,7 +87,8 @@ export class TimerService {
   updateLog(updatedLog: TimeLog) {
     const currentLogs = this.logsSubject.value;
     const updatedLogs = currentLogs.map(log => {
-      if (log.start === updatedLog.start) {
+      // Compare dates properly by converting to time values
+      if (log.start.getTime() === updatedLog.start.getTime()) {
         return updatedLog;
       }
       return log;
@@ -111,12 +112,17 @@ export class TimerService {
   }
 
   filterLogsByDay(date: Date): Observable<TimeLog[]> {
+    // Normalize the date to remove time component for comparison
+    const normalizedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    
     return this.logs$.pipe(
       map(logs => logs.filter(log => {
+        // Normalize the log date to remove time component for comparison
         const logDate = new Date(log.start);
-        return logDate.getFullYear() === date.getFullYear() &&
-               logDate.getMonth() === date.getMonth() &&
-               logDate.getDate() === date.getDate();
+        const normalizedLogDate = new Date(logDate.getFullYear(), logDate.getMonth(), logDate.getDate());
+        
+        // Compare the normalized dates
+        return normalizedLogDate.getTime() === normalizedDate.getTime();
       }))
     );
   }

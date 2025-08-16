@@ -59,15 +59,15 @@
                     </div>
                 </div>
 
-                <div class="d-grid gap-2 d-md-block">
-                    <button class="btn btn-primary me-md-2" 
-                            (click)="startTimer()"
-                            [disabled]="isRunning$ | async">
+                <div class="d-grid">
+                    <button class="btn btn-primary btn-lg" 
+                            *ngIf="!(isRunning$ | async)"
+                            (click)="startTimer()">
                         Start
                     </button>
-                    <button class="btn btn-danger" 
-                            (click)="stopTimer()"
-                            [disabled]="!(isRunning$ | async)">
+                    <button class="btn btn-danger btn-lg" 
+                            *ngIf="isRunning$ | async"
+                            (click)="stopTimer()">
                         Stop
                     </button>
                 </div>
