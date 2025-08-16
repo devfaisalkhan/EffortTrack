@@ -112,17 +112,9 @@ export class TimerService {
   }
 
   filterLogsByDay(date: Date): Observable<TimeLog[]> {
-    // Normalize the date to remove time component for comparison
-    const normalizedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    
     return this.logs$.pipe(
       map(logs => logs.filter(log => {
-        // Normalize the log date to remove time component for comparison
-        const logDate = new Date(log.start);
-        const normalizedLogDate = new Date(logDate.getFullYear(), logDate.getMonth(), logDate.getDate());
-        
-        // Compare the normalized dates
-        return normalizedLogDate.getTime() === normalizedDate.getTime();
+        return new Date(log.start).toDateString() === date.toDateString();
       }))
     );
   }

@@ -35,7 +35,7 @@ export class TimeLogs implements OnInit {
   onDateChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.value) {
-      this.filterDate = new Date(input.value);
+      this.filterDate = new Date(input.value.replace(/-/g, '/'));
       this.filterLogsByDay();
     }
   }
